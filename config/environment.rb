@@ -10,7 +10,5 @@ Dir[File.join(File.dirname(__FILE__), "../app/models", "*.rb")].each {|f| requir
 
 connection_details = YAML::load(File.open('config/database.yml'))
 
-ActiveRecord::Base.establish_connection(
-  :adapter => "sqlite3",
-  :database => "db/artists.sqlite"
-)
+ENV["SINATRA_ENV"] ||= 'development'
+ActiveRecord::Base.establish_connection(ENV["SINATRA_ENV"].to_sym)
